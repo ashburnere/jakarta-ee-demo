@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<display-name>Jakarta-EE-Demo</display-name>
+
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- Define a “javax.faces.webapp.FacesServlet” mapping, and map to those 
+		well-known JSF file extensions (/faces/*, *.jsf, *.xhtml,*.faces). In this 
+		case, the below 4 URLs are pointing to the same hello.xhtml. 
+		http://localhost:8080/JavaServerFaces/hello.jsf 
+		http://localhost:8080/JavaServerFaces/hello.faces 
+		http://localhost:8080/JavaServerFaces/hello.xhtml 
+		http://localhost:8080/JavaServerFaces/faces/hello.jsf -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Change to "Production" when you are ready to deploy In JSF 2.0 development, 
+		it’s recommended to set the “javax.faces.PROJECT_STAGE” to “Development“, 
+		it will provide many useful debugging information to let you track the bugs 
+		easily. For deployment, just change it to “Production“, you just do not want 
+		your customer to look at this annoying debugging information :). -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+</web-app>

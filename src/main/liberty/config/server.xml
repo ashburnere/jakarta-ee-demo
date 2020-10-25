@@ -1,0 +1,17 @@
+<server description="Jakarta EE demo Liberty server">
+	<featureManager>
+		<feature>jaxrs-2.1</feature>
+		<feature>cdi-2.0</feature>
+		<feature>jsf-2.3</feature>
+		<feature>el-3.0</feature>
+		<feature>jsp-2.3</feature>
+		<feature>servlet-4.0</feature>
+		<feature>concurrent-1.0</feature>
+	</featureManager>
+
+	<httpEndpoint httpPort="${default.http.port}"
+		httpsPort="${default.https.port}" id="defaultHttpEndpoint" host="*" />
+
+	<webApplication location="jakarta-ee-demo.war"
+		contextRoot="${app.context.root}" />
+</server>

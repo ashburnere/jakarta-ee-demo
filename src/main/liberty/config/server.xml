@@ -4,9 +4,14 @@
 		<feature>cdi-2.0</feature>
 		<feature>jsf-2.3</feature>
 		<feature>el-3.0</feature>
+		<feature>jpa-2.2</feature>
+		<feature>jsonb-1.0</feature>
+		<feature>jsonp-1.1</feature>
 		<feature>jsp-2.3</feature>
 		<feature>servlet-4.0</feature>
 		<feature>concurrent-1.0</feature>
+		<feature>mpHealth-2.0</feature>
+		<feature>mpOpenAPI-1.1</feature>
 	</featureManager>
 
 	<httpEndpoint httpPort="${default.http.port}"
@@ -14,4 +19,13 @@
 
 	<webApplication location="jakarta-ee-demo.war"
 		contextRoot="${app.context.root}" />
+
+	<library id="derbyJDBCLib">
+		<fileset dir="${shared.resource.dir}" includes="derby*.jar" />
+	</library>
+	<dataSource id="jpadatasource" jndiName="jdbc/jpadatasource">
+		<jdbcDriver libraryRef="derbyJDBCLib" />
+		<properties.derby.embedded
+			databaseName="libertyDB" createDatabase="create" />
+	</dataSource>
 </server>

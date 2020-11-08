@@ -25,6 +25,9 @@ import javax.ws.rs.core.Response;
 
 import org.junit.jupiter.api.Test;
 
+import com.ashburnere.jakarta_ee_demo.boundary.RestConsumer;
+import com.ashburnere.jakarta_ee_demo.entity.Person;
+
 public class EndpointIT {
     
     private static final Jsonb jsonb = JsonbBuilder.create();
@@ -66,4 +69,15 @@ public class EndpointIT {
         // end::body[]
         response.close();
     }
+    
+    @Test
+	public void whenConsumeWithJsonb_thenGetPerson() {
+	    String url = "http://localhost:9080/jakarta-ee-demo/resources/persons/1";
+	    String result = RestConsumer.consumeWithJsonb(url);        
+	    
+	    Person person = JsonbBuilder.create().fromJson(result, Person.class);
+	    assertEquals(1, person.getId());
+	    assertEquals("normanlewis", person.getUsername());
+	    assertEquals("normanlewis@email.com", person.getEmail());
+	}
 }

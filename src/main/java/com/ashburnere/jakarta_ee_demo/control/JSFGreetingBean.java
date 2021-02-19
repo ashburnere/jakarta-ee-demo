@@ -16,9 +16,6 @@ public class JSFGreetingBean implements Serializable {
 
 	private String greeting = "I'm a regular JSF Bean";
 
-	@Resource
-	ExecutorService exec;
-
 	@Inject
 	RequestMonitorTransient requestMonitorTransient;
 

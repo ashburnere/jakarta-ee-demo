@@ -1,5 +1,6 @@
 package com.ashburnere.jakarta_ee_demo.boundary;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -14,37 +15,43 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.ashburnere.jakarta_ee_demo.control.PersonDao;
-import com.ashburnere.jakarta_ee_demo.entity.Person;
+//import com.ashburnere.jakarta_ee_demo.control.PersonDao;
+//import com.ashburnere.jakarta_ee_demo.entity.Person;
 
 @RequestScoped
 @Path("persons")
 public class PersonResource {
 
-	@Inject
-	private PersonDao personDao;
+//	@Inject
+//	private PersonDao personDao;
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Person> getAllPersons() {
-		return personDao.getAll();
-	}
+//	@GET
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public List<Person> getAllPersons() {
+//		return personDao.getAll();
+//	}
 	
 	@GET
-	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional
-	public Person getPerson(@PathParam("id") int id) {
-	    Person person = personDao.readPerson(id);
-	    return person;
+	public List<String> getAllPersons() {
+		return Arrays.asList("a", "b", "c");
 	}
-
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Transactional
-	public Response addPerson(Person person) {
-	    personDao.createPerson(person);
-	    String respMessage = "Person #" + person.getId() + " created successfully.";
-	    return Response.status(Response.Status.CREATED).entity(respMessage).build();
-	}
+	
+//	@GET
+//	@Path("{id}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Transactional
+//	public Person getPerson(@PathParam("id") int id) {
+//	    Person person = personDao.readPerson(id);
+//	    return person;
+//	}
+//
+//	@POST
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Transactional
+//	public Response addPerson(Person person) {
+//	    personDao.createPerson(person);
+//	    String respMessage = "Person #" + person.getId() + " created successfully.";
+//	    return Response.status(Response.Status.CREATED).entity(respMessage).build();
+//	}
 }

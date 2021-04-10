@@ -12,8 +12,9 @@
  // end::comment[]
 package it.io.openliberty.guides.rest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.util.List;
 import java.util.Properties;
 
 import javax.json.bind.Jsonb;
@@ -23,61 +24,57 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.junit.jupiter.api.Test;
 
 import com.ashburnere.jakarta_ee_demo.boundary.RestConsumer;
 import com.ashburnere.jakarta_ee_demo.entity.Person;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class EndpointIT {
     
     private static final Jsonb jsonb = JsonbBuilder.create();
 
-    // tag::test[]
     @Test
-    // end::test[]
     public void testGetProperties() {
-        // tag::systemProperties[]
-        String port = System.getProperty("http.port");
-        String context = System.getProperty("context.root");
-        // end::systemProperties[]
+        String port = System.getProperty("http.port"); // z.B. 9080
+        String context = System.getProperty("context.root"); // z.B. jakarta-ee-demo
         String url = "http://localhost:" + port + "/" + context + "/";
 
-        // tag::clientSetup[]
         Client client = ClientBuilder.newClient();
-        // end::clientSetup[]
-
-        // tag::target[]
         WebTarget target = client.target(url + "resources/properties");
-        // end::target[]
-        // tag::requestget[]
         Response response = target.request().get();
-        // end::requestget[]
 
-        // tag::assertequals[]
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus(),
                      "Incorrect response code from " + url);
-        // end::assertequals[]
 
-        // tag::body[]
         String json = response.readEntity(String.class);
         Properties sysProps = jsonb.fromJson(json, Properties.class);
 
-        // tag::assertosname[]
         assertEquals(System.getProperty("os.name"), sysProps.getProperty("os.name"),
                      "The system property for the local and remote JVM should match");
-        // end::assertosname[]
-        // end::body[]
         response.close();
     }
-    
+
     @Test
-	public void whenConsumeWithJsonb_thenGetPerson() {
-	    String url = "http://localhost:9080/jakarta-ee-demo/resources/persons/1";
-	    String result = RestConsumer.consumeWithJsonb(url);        
-	    
-	    Person person = JsonbBuilder.create().fromJson(result, Person.class);
-	    assertEquals(1, person.getId());
-	    assertEquals("normanlewis", person.getUsername());
-	    assertEquals("normanlewis@email.com", person.getEmail());
-	}
+    public void testHealtcheck() {
+        String port = System.getProperty("http.port");
+        String context = System.getProperty("context.root");
+        String url = "http://localhost:" + port + "/";
+
+        Client client = ClientBuilder.newClient();
+        WebTarget target = client.target(url + "health");
+        Response response = target.request().get();
+
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus(),
+                "Incorrect response code from " + url);
+
+        String json = response.readEntity(String.class);
+        Health health = jsonb.fromJson(json, Health.class);
+
+        assertEquals("UP", health.status,
+                "Health status is not up");
+        response.close();
+    }
 }

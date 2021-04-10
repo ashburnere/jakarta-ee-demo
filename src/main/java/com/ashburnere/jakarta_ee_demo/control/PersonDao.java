@@ -21,11 +21,15 @@ public class PersonDao {
         em.persist(person);
         return person;
     }
- 
-    public Person readPerson(int personId) {
-        return em.find(Person.class, personId);
-    }
-    
+
+	public Person readPerson(int personId) {
+		return em.find(Person.class, personId);
+	}
+
+	public void deletePerson(final int personId) {
+		final Person person = em.find(Person.class, personId);
+		em.remove(person);
+	}
 	public List<Person> getAll() {
 //		return getAllWithNamedQuery();
 //		return getAllWithCriteriaAPI();

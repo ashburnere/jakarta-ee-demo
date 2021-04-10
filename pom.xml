@@ -23,17 +23,20 @@
 
 		<testServerHttpPort>7070</testServerHttpPort>
 	    <!-- versions -->
+		<!--
 	    <version.jakarta.jakartaee-web-api>8.0.0</version.jakarta.jakartaee-web-api>
         <version.microprofile>3.2</version.microprofile>
-        <version.derby>10.14.2.0</version.derby>
-        <version.liberty-maven-plugin>3.3-M3</version.liberty-maven-plugin>
-        <version.maven-war-plugin>3.2.3</version.maven-war-plugin>
+
+
         <version.junit>4.12</version.junit>
         <version.yasson>1.0.5</version.yasson>
         <version.cxf-rt-rs-client>3.2.6</version.cxf-rt-rs-client>
         <version.javax.json>1.0.4</version.javax.json>
         <version.cxf-rt-rs-mp-client>3.3.1</version.cxf-rt-rs-mp-client>
-	
+		-->
+		<version.liberty-maven-plugin>3.3-M3</version.liberty-maven-plugin>
+		<version.maven-war-plugin>3.2.3</version.maven-war-plugin>
+		<version.derby>10.14.2.0</version.derby>
 	</properties>
 
 	<dependencies>
@@ -47,7 +50,7 @@
 		<dependency>
 			<groupId>org.eclipse.microprofile</groupId>
 			<artifactId>microprofile</artifactId>
-			<version>3.3</version>
+			<version>3.2</version>
 			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
@@ -64,18 +67,6 @@
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
 			<version>5.6.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-rs-client</artifactId>
-			<version>3.3.6</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-rs-extension-providers</artifactId>
-			<version>3.3.6</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

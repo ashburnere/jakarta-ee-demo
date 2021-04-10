@@ -5,12 +5,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -18,7 +13,7 @@ import com.ashburnere.jakarta_ee_demo.control.PersonDao;
 import com.ashburnere.jakarta_ee_demo.entity.Person;
 
 @RequestScoped
-@Path("persons")
+@Path("person")
 public class PersonResource {
 
 	@Inject
@@ -33,7 +28,6 @@ public class PersonResource {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Transactional
 	public Person getPerson(@PathParam("id") int id) {
 	    Person person = personDao.readPerson(id);
 	    return person;
@@ -47,4 +41,14 @@ public class PersonResource {
 	    String respMessage = "Person #" + person.getId() + " created successfully.";
 	    return Response.status(Response.Status.CREATED).entity(respMessage).build();
 	}
+
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Transactional
+	public Response deletePerson(final int id) {
+		personDao.deletePerson(id);
+		String respMessage = "Person #" + id + " deleted successfully.";
+		return Response.status(Response.Status.ACCEPTED).entity(respMessage).build();
+	}
+
 }

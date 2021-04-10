@@ -1,17 +1,7 @@
-<server description="Jakarta EE demo Liberty server">
+<server description="Jakarta EE demo Liberty server with Microprofile">
 	<featureManager>
-		<feature>jaxrs-2.1</feature>
-		<feature>cdi-2.0</feature>
-		<feature>jsf-2.3</feature>
-		<feature>el-3.0</feature>
-		<feature>jpa-2.2</feature>
-		<feature>jsonb-1.0</feature>
-		<feature>jsonp-1.1</feature>
-		<feature>jsp-2.3</feature>
-		<feature>servlet-4.0</feature>
-		<feature>concurrent-1.0</feature>
-		<feature>mpHealth-2.0</feature>
-		<feature>mpOpenAPI-1.1</feature>
+		<feature>webProfile-8.0</feature>
+		<feature>microProfile-3.2</feature>
 	</featureManager>
 
 	<httpEndpoint httpPort="${default.http.port}"
